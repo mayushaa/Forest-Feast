@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ending">
+
+    <ImageView
+        android:id="@+id/ivLetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"
+        app:srcCompat="@drawable/happy_baba" />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="300dp"
+            android:layout_height="600dp"
+            android:fontFamily="@font/cursive"
+            android:text="Our journey has come to an end! The local restaurant critic, the fellow forest animals and even the mighty witch of the forest, Baba Yaga, all enjoyed your impressive cooking skills! You have truly proven that nothing is impossible. Baba is back home and so, Chef must leave. But don't be afraid, tomorrow only awaits. Resume making yummy
+porridge when you're ready once again. Baba and me are welcoming visitors whom Baba approves of, you're certainly one! It was a pleasure to meet you, I do expect a bowl of oats next time! Granddaughter of the witch."
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#3D200E"
+            android:textSize="32dp"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
+        android:fontFamily="@font/cursive"
+        android:text="Credits to the following for making this experience possible: Game Developer- Maya Story Writer- Maya Visual Designer- Maya 2D Artist- Maya Animator- Maya"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#3D200E"
+        android:textSize="36dp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvThank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cute"
+        android:text="Thank you for playing :)"
+        android:textAlignment="center"
+        android:textColor="#3D200E"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

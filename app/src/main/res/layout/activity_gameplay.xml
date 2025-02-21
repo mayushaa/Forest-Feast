@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Gameplay">
+
+    <ImageView
+        android:id="@+id/ivBg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_basic" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_marginTop="96dp"
+        android:background="#D0D6C9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/little_witch"
+            android:text="Choose the correct ingredient"
+            android:textColor="#3D200E"
+            android:textSize="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ibAns1"
+            android:layout_width="111dp"
+            android:layout_height="107dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="-12dp"
+            android:backgroundTint="#00EFEFEF"
+            app:layout_constraintEnd_toStartOf="@+id/ibAns2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plain_milk" />
+
+        <ImageButton
+            android:id="@+id/ibAns2"
+            android:layout_width="111dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="-12dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="-12dp"
+            android:backgroundTint="#00000000"
+            app:layout_constraintEnd_toStartOf="@+id/ibAns3"
+            app:layout_constraintStart_toEndOf="@+id/ibAns1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/oats" />
+
+        <ImageButton
+            android:id="@+id/ibAns3"
+            android:layout_width="111dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="-12dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="-12dp"
+            android:backgroundTint="#00000000"
+            app:layout_constraintEnd_toStartOf="@+id/ibAns4"
+            app:layout_constraintStart_toEndOf="@+id/ibAns2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/vanilla_yoghurt" />
+
+        <ImageButton
+            android:id="@+id/ibAns4"
+            android:layout_width="111dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="-12dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#00000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/ibAns3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/banana_hearts" />
+
+        <TextView
+            android:id="@+id/tvAns1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:fontFamily="@font/witches_magic"
+            android:text="Ans 1"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ibAns1" />
+
+        <TextView
+            android:id="@+id/tvAns2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:fontFamily="@font/witches_magic"
+            android:text="Ans 2"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ibAns2" />
+
+        <TextView
+            android:id="@+id/tvAns3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            android:fontFamily="@font/witches_magic"
+            android:text="Ans 3"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ibAns3" />
+
+        <TextView
+            android:id="@+id/tvAns4"
+            android:layout_width="44dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="-8dp"
+            android:fontFamily="@font/witches_magic"
+            android:text="Ans 4"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ibAns4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.55"
+        app:srcCompat="@drawable/star" />
+
+    <TextView
+        android:id="@+id/tvPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/witches_magic"
+        android:text="0"
+        android:textColor="#3D200E"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.55" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

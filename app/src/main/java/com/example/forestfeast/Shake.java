@@ -36,6 +36,8 @@ public class Shake extends AppCompatActivity {
 
     public void init()
     {
+        Log.d("maya debugging", "shake init");
+
         ivFruit = findViewById(R.id.ivFruit);
         ivTopping1 = findViewById(R.id.ivTopping1);
         ivYoghurt = findViewById(R.id.ivYoghurt);
@@ -53,9 +55,11 @@ public class Shake extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_shake);
 
+        Log.d("maya debugging", "onCreate shake");
         init();
+        Log.d("maya debugging", "after init");
         hideSystemUI();
         setIngredients();
 
@@ -83,7 +87,7 @@ public class Shake extends AppCompatActivity {
                     float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
                     if (speed > SHAKE_THRESHOLD) {
-                        Log.d("Shake", "Device shaken!");
+                        Log.d("maya debugging", "Device shaken!");
                         increaseImageMovement();
                         handler.postDelayed(() -> navigateToResult(), 10000);
                     }
@@ -102,7 +106,7 @@ public class Shake extends AppCompatActivity {
 
         sensorManager.registerListener(sensorEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
-        setContentView(R.layout.activity_shake);
+        EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

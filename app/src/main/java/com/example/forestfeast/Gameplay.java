@@ -118,7 +118,7 @@ public class Gameplay extends AppCompatActivity {
     private void navigateToShake() {
         if (timer != null) timer.cancel();
 
-        Log.d("maya debugging", "navigate from gameplay "+currentLevel);
+        Log.d("maya debugging", "navigate from gameplay 1 "+currentLevel);
 
         Intent intent = new Intent(Gameplay.this, Shake.class);
         intent.putExtra("level", currentLevel);

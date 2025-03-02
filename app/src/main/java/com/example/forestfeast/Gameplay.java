@@ -120,7 +120,7 @@ public class Gameplay extends AppCompatActivity {
 
         Log.d("maya debugging", "navigate from gameplay "+currentLevel);
 
-        Intent intent = new Intent(Gameplay.this, Result.class);
+        Intent intent = new Intent(Gameplay.this, Shake.class);
         intent.putExtra("level", currentLevel);
         Log.d("maya debugging", "navigate from gameplay 2 "+currentLevel);
         intent.putExtra("correctCounter", correctCounter);

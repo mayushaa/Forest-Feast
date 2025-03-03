@@ -111,16 +111,20 @@ public class Gameplay extends AppCompatActivity {
         if (currentQuestion < questions.length) {
             displayQuestion();
         } else {
+            Log.d("maya debugging", "next question");
             navigateToShake();
         }
     }
 
     private void navigateToShake() {
+
+        Log.d("maya debugging", "navigateToShake "+currentLevel);
         if (timer != null) timer.cancel();
 
-        Log.d("maya debugging", "navigate from gameplay 1 "+currentLevel);
+        Log.d("maya", "navigate from gameplay 1 "+currentLevel);
 
         Intent intent = new Intent(Gameplay.this, Shake.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         Log.d("maya debugging", "navigate from gameplay 2 "+currentLevel);
         intent.putExtra("correctCounter", correctCounter);

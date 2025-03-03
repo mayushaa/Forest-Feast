@@ -193,6 +193,7 @@ public class Outside extends AppCompatActivity {
 
     private void transferToRestaurant() {
         Intent intent = new Intent(Outside.this, Restaurant.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
         finish();

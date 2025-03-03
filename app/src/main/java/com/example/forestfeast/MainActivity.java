@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             fabBegin.setOnClickListener(v -> {
                 Log.d("MainActivity", "fabBegin clicked");
                 Intent intent = new Intent(MainActivity.this, Login.class);
+                intent.putExtra("MUSIC_RES_ID", R.raw.click);
                 startActivity(intent);
             });
         }
@@ -68,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         if (btnDev != null) {
             btnDev.setOnClickListener(v -> {
                 Log.d("MainActivity", "btnDev clicked");
-                Intent intent = new Intent(MainActivity.this, Ending.class);
+                Intent intent = new Intent(MainActivity.this, Shake.class);
+                intent.putExtra("MUSIC_RES_ID", R.raw.click);
                 startActivity(intent);
             });
         }

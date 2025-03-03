@@ -60,7 +60,9 @@ public class Register extends AppCompatActivity {
 
                 if (insertUser(fullName, username, email, password)) {
                     Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Register.this, Login.class));
+                    Intent intent = new Intent(Register.this, Login.class);
+                    intent.putExtra("MUSIC_RES_ID", R.raw.click);
+                    startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(Register.this, "Registration failed", Toast.LENGTH_SHORT).show();

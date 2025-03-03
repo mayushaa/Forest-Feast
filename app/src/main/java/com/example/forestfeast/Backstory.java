@@ -198,6 +198,7 @@ public class Backstory extends AppCompatActivity {
         startService(stopMusicIntent);
 
         Intent intent = new Intent(Backstory.this, Outside.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         startActivity(intent);
     }
 

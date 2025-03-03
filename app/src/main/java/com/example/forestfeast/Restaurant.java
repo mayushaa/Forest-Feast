@@ -137,6 +137,7 @@ public class Restaurant extends AppCompatActivity {
         Log.d("maya debugging", "Restaurant"+currentLevel);
 
         Intent intent = new Intent(Restaurant.this, Recipe.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
     }

@@ -47,7 +47,7 @@ public class Result extends AppCompatActivity {
             Log.d("maya debugging", "go to outside (from result)"+currentLevel);
 
             Intent intent = new Intent(Result.this, Outside.class);
-
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
             intent.putExtra("level", currentLevel);
             startActivity(intent);
         });
@@ -60,6 +60,7 @@ public class Result extends AppCompatActivity {
             currentLevel++;
 
             Intent intent = new Intent(Result.this, Story.class);
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
             intent.putExtra("level", currentLevel);
             startActivity(intent);
         });
@@ -70,6 +71,7 @@ public class Result extends AppCompatActivity {
             stopService(new Intent(this, MusicService.class));
 
             Intent intent = new Intent(Result.this, Ending.class);
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
             startActivity(intent);
         });
     }
@@ -163,13 +165,14 @@ public class Result extends AppCompatActivity {
         }
     }
 
-    public void onLevelCompleted() {
-        currentLevel++;
-
-        Intent intent = new Intent(Result.this, Outside.class);
-        intent.putExtra("level", currentLevel);
-        startActivity(intent);
-    }
+//    public void onLevelCompleted() {
+//        currentLevel++;
+//
+//        Intent intent = new Intent(Result.this, Outside.class);
+//        intent.putExtra("MUSIC_RES_ID", R.raw.click);
+//        intent.putExtra("level", currentLevel);
+//        startActivity(intent);
+//    }
 
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();

@@ -64,6 +64,7 @@ public class Login extends AppCompatActivity {
                                 stopService(new Intent(Login.this, MusicService.class)); // Stop the music service
                                 saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
                                 Intent intent = new Intent(Login.this, Backstory.class);
+                                intent.putExtra("MUSIC_RES_ID", R.raw.click);
                                 startActivity(intent);
                             })
                             .setNegativeButton("Cancel", (dialog, which) -> {
@@ -82,6 +83,7 @@ public class Login extends AppCompatActivity {
                     Log.d("MainActivity", "fabLoadGame clicked");
                     saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
                     Intent intent = new Intent(Login.this, Outside.class);
+                    intent.putExtra("MUSIC_RES_ID", R.raw.click);
                     startActivity(intent);
                 }
             });
@@ -90,6 +92,7 @@ public class Login extends AppCompatActivity {
         fabRegister.setOnClickListener(v -> {
             saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
             Intent intent = new Intent(Login.this, Register.class);
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();

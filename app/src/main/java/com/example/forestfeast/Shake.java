@@ -117,6 +117,7 @@ public class Shake extends AppCompatActivity {
     public void navigateToResult()
     {
         Intent intent = new Intent(Shake.this, Result.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         stopService(new Intent(this, MusicService.class));
         startActivity(intent);

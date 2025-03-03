@@ -85,6 +85,7 @@ public class Recipe extends AppCompatActivity {
         Log.d("maya debugging", "Recipe"+currentLevel);
 
         Intent intent = new Intent(Recipe.this, Gameplay.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
     }

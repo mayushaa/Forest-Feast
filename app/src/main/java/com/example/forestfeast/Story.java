@@ -61,7 +61,6 @@ public class Story extends AppCompatActivity {
 
         ivPicture.setOnClickListener(v -> {
             if (!canPlayerNext) return;
-
             handler.removeCallbacksAndMessages(null);
             nextImageLoop();
         });
@@ -69,7 +68,7 @@ public class Story extends AppCompatActivity {
         playSoundForCurrentPicture();
         nextImageLoop();
 
-        fabSkip.setOnClickListener(v -> moveToRestaurantActivity());
+        fabSkip.setOnClickListener(v -> navigateToRestaurantActivity());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -81,22 +80,24 @@ public class Story extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Intent pauseMusicIntent = new Intent(this, MusicService.class);
-        pauseMusicIntent.setAction("PAUSE_MUSIC");
-        startService(pauseMusicIntent);
+        Intent intent = new Intent(this, MusicService.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
+        intent.setAction("PAUSE_MUSIC");
+        startService(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Intent resumeMusicIntent = new Intent(this, MusicService.class);
-        resumeMusicIntent.setAction("RESUME_MUSIC");
-        startService(resumeMusicIntent);
+        Intent intent = new Intent(this, MusicService.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
+        intent.setAction("RESUME_MUSIC");
+        startService(intent);
     }
 
     private void nextImageLoop() {
         if (finished || currentPicture >= imageResources.length - 1) {
-            moveToRestaurantActivity();
+            navigateToRestaurantActivity();
             return;
         }
 
@@ -132,7 +133,7 @@ public class Story extends AppCompatActivity {
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    moveToRestaurantActivity();
+                    navigateToRestaurantActivity();
                 }
             }, 5000);
         }
@@ -166,11 +167,12 @@ public class Story extends AppCompatActivity {
         startService(intent);
     }
 
-    private void moveToRestaurantActivity() {
-        handler.removeCallbacksAndMessages(null); // Stop any pending tasks
-        stopService(new Intent(this, MusicService.class)); // Stop music playback
+    private void navigateToRestaurantActivity() {
+        handler.removeCallbacksAndMessages(null);
+        stopService(new Intent(this, MusicService.class));
 
         Intent intent = new Intent(Story.this, Restaurant.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
         finish();

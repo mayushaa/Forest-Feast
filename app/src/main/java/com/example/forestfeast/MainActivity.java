@@ -1,6 +1,7 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         this.fabBegin = findViewById(R.id.fabBegin);
         this.flChef = findViewById(R.id.flChef);
         this.btnDev = findViewById(R.id.btnDev);
+        view = new MixingView(MainActivity.this, flChef.getWidth(), flChef.getHeight());
+        flChef.addView(view);
     }
 
     @Override
@@ -44,16 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("MIXING", "OnCreate after init");
 
-        view = new MixingView(MainActivity.this, flChef.getWidth(), flChef.getHeight());
-        flChef.addView(view);
-
         if (fabBegin != null) {
-            fabBegin.setOnClickListener(v -> {
-                Log.d("MainActivity", "fabBegin clicked");
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                intent.putExtra("MUSIC_RES_ID", R.raw.click);
-                startActivity(intent);
-            });
+            navigateToLogin();
         }
 
         Log.d("MIXING", "OnCreate after button");
@@ -70,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             btnDev.setOnClickListener(v -> {
                 Log.d("MainActivity", "btnDev clicked");
                 Intent intent = new Intent(MainActivity.this, Shake.class);
-                intent.putExtra("MUSIC_RES_ID", R.raw.click);
                 startActivity(intent);
             });
         }
@@ -79,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+    }
+
+    public void navigateToLogin()
+    {
+        fabBegin.setOnClickListener(v -> {
+            Log.d("MainActivity", "fabBegin clicked");
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
+            startActivity(intent);
         });
     }
 

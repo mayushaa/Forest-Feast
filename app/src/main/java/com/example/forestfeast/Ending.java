@@ -3,6 +3,7 @@ package com.example.forestfeast;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -11,14 +12,19 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.forestfeast.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Ending extends AppCompatActivity {
 
     private ImageView ivLetter;
     private TextView tv1, tv2, tvThank;
     private Handler handler;
+    //private FloatingActionButton fabQuit;
 
     private void init() {
         ivLetter = findViewById(R.id.ivLetter);
@@ -26,6 +32,7 @@ public class Ending extends AppCompatActivity {
         tv2 = findViewById(R.id.tv2);
         tvThank = findViewById(R.id.tvThank);
         handler = new Handler();
+        //fabQuit = findViewById(R.id.fabQuit);
     }
 
     @Override
@@ -40,6 +47,20 @@ public class Ending extends AppCompatActivity {
         startMusicService();
 
         scheduleAnimations();
+
+//        if (fabQuit != null) {
+//            fabQuit.setOnClickListener(v -> {
+//                Log.d("MainActivity", "fabQuit clicked");
+//                finishAffinity();
+//            });
+//        }
+
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
     }
 
     private void startMusicService() {
@@ -59,6 +80,8 @@ public class Ending extends AppCompatActivity {
         handler.postDelayed(() -> showAndScrollText(tv2), 22000);
 
         handler.postDelayed(() -> fadeInView(tvThank), 37000);
+
+//        handler.postDelayed(() -> fadeInView(fabQuit), 40000);
     }
 
     private void fadeInImage(ImageView imageView, int resId) {

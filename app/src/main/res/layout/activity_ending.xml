@@ -22,9 +22,8 @@
             android:id="@+id/tv1"
             android:layout_width="300dp"
             android:layout_height="600dp"
-            android:fontFamily="@font/cursive"
-            android:text="Our journey has come to an end! The local restaurant critic, the fellow forest animals and even the mighty witch of the forest, Baba Yaga, all enjoyed your impressive cooking skills! You have truly proven that nothing is impossible. Baba is back home and so, Chef must leave. But don't be afraid, tomorrow only awaits. Resume making yummy
-porridge when you're ready once again. Baba and me are welcoming visitors whom Baba approves of, you're certainly one! It was a pleasure to meet you, I do expect a bowl of oats next time! Granddaughter of the witch."
+            android:fontFamily="@font/hand_writing"
+            android:text="Our journey has come to an end! The local restaurant critic, the fellow forest animals and even the mighty witch of the forest, Baba Yaga, all enjoyed your impressive cooking skills! Baba is back home and so, Chef must leave. But don't be afraid, tomorrow only awaits. Baba and me are welcoming visitors whom Baba approves of, you're certainly one! It was a pleasure to meet you, I do expect a bowl of oats next time! Granddaughter of the witch."
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="#3D200E"
@@ -40,8 +39,8 @@ porridge when you're ready once again. Baba and me are welcoming visitors whom B
         android:id="@+id/tv2"
         android:layout_width="300dp"
         android:layout_height="600dp"
-        android:fontFamily="@font/cursive"
-        android:text="Credits to the following for making this experience possible: Game Developer- Maya Story Writer- Maya Visual Designer- Maya 2D Artist- Maya Animator- Maya"
+        android:fontFamily="@font/hand_writing"
+        android:text="Credits to the following for making this experience possible:\n Game Developer- Maya Story Writer- Maya\n Visual Designer- Maya\n 2D Artist- Maya\n Animator- Maya"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#3D200E"
@@ -68,5 +67,25 @@ porridge when you're ready once again. Baba and me are welcoming visitors whom B
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabQuit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F2F1EC"
+        android:elevation="50dp"
+        android:fontFamily="@font/cute"
+        android:text="Quit"
+        android:visibility="invisible"
+        android:textColor="#3D200E"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        android:translationZ="999dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

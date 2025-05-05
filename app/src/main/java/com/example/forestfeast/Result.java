@@ -1,6 +1,10 @@
 package com.example.forestfeast;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +31,8 @@ public class Result extends AppCompatActivity {
                 R.drawable.apple_pie_treat, R.drawable.cherry_pond, R.drawable.beary_delighted,
                 R.drawable.strawberry_dream, R.drawable.witches_stew
         };
+    public HelperDB helperDB;
+    public SQLiteDatabase db;
 
     public void init()
     {
@@ -34,8 +40,9 @@ public class Result extends AppCompatActivity {
         fabProceed = findViewById(R.id.fabProceed);
         currentLevel = getIntent().getIntExtra("level", 0);
         ivOatmeal = findViewById(R.id.ivOatmeal);
-
         Log.d("maya debugging", "onCreate result"+currentLevel);
+        helperDB = new HelperDB(Result.this);
+        db = helperDB.getWritableDatabase();
     }
 
     private void navigateToOutside() {
@@ -43,6 +50,7 @@ public class Result extends AppCompatActivity {
             stopService(new Intent(this, MusicService.class));
 
             currentLevel++;
+            upgradeLevel();
 
             Log.d("maya debugging", "go to outside (from result)"+currentLevel);
 
@@ -59,6 +67,8 @@ public class Result extends AppCompatActivity {
 
             currentLevel++;
 
+            upgradeLevel();
+
             Intent intent = new Intent(Result.this, Story.class);
             intent.putExtra("MUSIC_RES_ID", R.raw.click);
             intent.putExtra("level", currentLevel);
@@ -69,6 +79,10 @@ public class Result extends AppCompatActivity {
     private void navigateToEnding() {
         fabProceed.setOnClickListener(v -> {
             stopService(new Intent(this, MusicService.class));
+
+            currentLevel = 0;
+
+            upgradeLevel();
 
             Intent intent = new Intent(Result.this, Ending.class);
             intent.putExtra("MUSIC_RES_ID", R.raw.click);
@@ -84,6 +98,8 @@ public class Result extends AppCompatActivity {
 
         init();
 
+        Log.d("maya debugging", "after init result"+currentLevel);
+
         hideSystemUI();
 
         Intent intent = new Intent(this, MusicService.class);
@@ -91,7 +107,11 @@ public class Result extends AppCompatActivity {
         intent.putExtra("LOOPING", false); // Don't loop the music
         startService(intent);
 
+        Log.d("maya debugging", "after music result"+currentLevel);
+
         setCurrentLevelOatmeal();
+
+        Log.d("maya debugging", "after oatmeal result"+currentLevel);
 
         int correctCounter = getIntent().getIntExtra("correctCounter", 0);
         tvScore.setText(String.valueOf(correctCounter * 15));
@@ -112,8 +132,28 @@ public class Result extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
-        System.out.println(3);
+    public void upgradeLevel() {
+        SharedPreferences sharedPref = getSharedPreferences("MAYA", MODE_PRIVATE);
+        String username = sharedPref.getString("user", null);
+
+        SQLiteDatabase db = helperDB.getWritableDatabase();
+        String [] oldData = {username};
+        String infield = helperDB.USERNAME+"=?";
+        ContentValues cv = new ContentValues();
+        cv.put(helperDB.CURRENT_LEVEL,currentLevel);
+
+        Log.d("maya debugging", "current level result" + currentLevel);
+        Log.d("maya debugging", "username result" + username);
+
+        int rowsChanged = db.update(helperDB.USERS_TABLE, cv, infield,
+
+                oldData);
+        if (rowsChanged>0)
+        {
+
+        }
     }
 
     @Override
@@ -164,15 +204,6 @@ public class Result extends AppCompatActivity {
                 break;
         }
     }
-
-//    public void onLevelCompleted() {
-//        currentLevel++;
-//
-//        Intent intent = new Intent(Result.this, Outside.class);
-//        intent.putExtra("MUSIC_RES_ID", R.raw.click);
-//        intent.putExtra("level", currentLevel);
-//        startActivity(intent);
-//    }
 
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();

@@ -1,6 +1,7 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class Gameplay extends AppCompatActivity {
     private static int currentLevel;
     public static int correctCounter = 0;
     private CountDownTimer timer;
+    public MediaPlayer mediaPlayer;
 
     public void init ()
     {
@@ -91,6 +93,9 @@ public class Gameplay extends AppCompatActivity {
         button.setOnClickListener(v -> {
             Log.d("maya debugging", "before setUpAnswerButton"+answerId+","+button);
 
+            if(mediaPlayer != null)
+                mediaPlayer.start();
+
             Question question = questions[currentQuestion];
             Log.d("maya debugging", "after setUpAnswerButton"+question.toString());
             if (question.isCorrectAnswer(answerId)) {
@@ -118,15 +123,18 @@ public class Gameplay extends AppCompatActivity {
 
     private void navigateToShake() {
 
+        if(mediaPlayer != null)
+            mediaPlayer.start();
+
         Log.d("maya debugging", "navigateToShake "+currentLevel);
         if (timer != null) timer.cancel();
 
         Log.d("maya", "navigate from gameplay 1 "+currentLevel);
 
         Intent intent = new Intent(Gameplay.this, Shake.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         Log.d("maya debugging", "navigate from gameplay 2 "+currentLevel);
+        Log.d("maya debugging", "correct counter "+correctCounter);
         intent.putExtra("correctCounter", correctCounter);
         startActivity(intent);
     }

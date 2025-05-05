@@ -3,6 +3,7 @@ package com.example.forestfeast;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,6 @@ import android.util.Log;
 public class Outside extends AppCompatActivity {
 
     public ImageView ivPicture, ivCriticTalk, ivLevel;
-    public int[] imageResources = {
-            R.drawable.out_critic, R.drawable.out_squirrel, R.drawable.out_fox,
-            R.drawable.out_deer, R.drawable.out_raccoon, R.drawable.out_bear,
-            R.drawable.out_bunny
-    };
     public static int currentLevel;
     public FrameLayout flCustomer;
     private WalkingView view;
@@ -76,7 +72,9 @@ public class Outside extends AppCompatActivity {
                     .start();
             playTalkingSound();
 
-        }else{
+        }
+        else
+        {
             Intent intent = new Intent(this, MusicService.class);
             intent.putExtra("MUSIC_RES_ID", R.raw.theme);
             intent.putExtra("LOOPING", false);
@@ -109,8 +107,8 @@ public class Outside extends AppCompatActivity {
         Log.d("maya debugging", "before handler(outside)"+currentLevel);
 
         new Handler().postDelayed(() -> {
-            Log.d("maya debugging", "transfer to restaurant(outside)"+currentLevel);
-            transferToRestaurant();
+            Log.d("maya debugging", "navigate to restaurant(outside)"+currentLevel);
+            navigateToRestaurant();
         }, 5000);
     }
 
@@ -136,9 +134,9 @@ public class Outside extends AppCompatActivity {
                 };
             case 3:
                 return new Bitmap[]{
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_1),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_2),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_3)
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_deer_1),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_deer_2),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_deer_3)
                 };
             case 4:
                 return new Bitmap[]{
@@ -191,9 +189,8 @@ public class Outside extends AppCompatActivity {
         startService(resumeMusicIntent);
     }
 
-    private void transferToRestaurant() {
+    private void navigateToRestaurant() {
         Intent intent = new Intent(Outside.this, Restaurant.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
         finish();

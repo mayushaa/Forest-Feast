@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaActionSound;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,8 @@ public class Login extends AppCompatActivity {
     public HelperDB helperDB;
     public SQLiteDatabase db;
     public AlertDialog alertDialog;
+    public MediaPlayer mediaPlayer;
+    public int currentLevel;
 
     public void init()
     {
@@ -52,51 +56,14 @@ public class Login extends AppCompatActivity {
         helperDB = new HelperDB(Login.this);
         db = helperDB.getWritableDatabase();
 
-        if (fabNewGame != null) {
-            fabNewGame.setOnClickListener(v -> {
-                if(validateLogin())
-                {
-                    new AlertDialog.Builder(Login.this)
-                            .setTitle("Are you certain you'd like to proceed?")
-                            .setMessage("This action will discard your current saved progress if exists.")
-                            .setPositiveButton("Continue", (dialog, which) -> {
-                                Log.d("MainActivity", "fabNewGame clicked");
-                                stopService(new Intent(Login.this, MusicService.class)); // Stop the music service
-                                saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
-                                Intent intent = new Intent(Login.this, Backstory.class);
-                                intent.putExtra("MUSIC_RES_ID", R.raw.click);
-                                startActivity(intent);
-                            })
-                            .setNegativeButton("Cancel", (dialog, which) -> {
-                                dialog.dismiss();
-                            })
-                            .show();
-                }
-            });
-        }
+        if (fabNewGame != null)
+            navigateToBackstory();
 
-        if (fabLoadGame != null) {
-            fabLoadGame.setOnClickListener(v -> {
-                if(validateLogin())
-                {
-                    stopService(new Intent(Login.this, MusicService.class)); // Stop the music service
-                    Log.d("MainActivity", "fabLoadGame clicked");
-                    saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
-                    Intent intent = new Intent(Login.this, Outside.class);
-                    intent.putExtra("MUSIC_RES_ID", R.raw.click);
-                    startActivity(intent);
-                }
-            });
-        }
+        if (fabLoadGame != null)
+            navigateToOutside();
 
-        fabRegister.setOnClickListener(v -> {
-            saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
-            Intent intent = new Intent(Login.this, Register.class);
-            intent.putExtra("MUSIC_RES_ID", R.raw.click);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        });
+        if(fabRegister !=null)
+            navigateToRegister();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -105,9 +72,78 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    public void navigateToBackstory()
+    {
+        fabNewGame.setOnClickListener(v -> {
+            if(validateLogin())
+            {
+                new AlertDialog.Builder(Login.this)
+                        .setTitle("Are you certain you'd like to proceed?")
+                        .setMessage("This action will discard your current saved progress if exists.")
+                        .setPositiveButton("Continue", (dialog, which) -> {
+                            Log.d("MainActivity", "fabNewGame clicked");
+                            stopService(new Intent(Login.this, MusicService.class));
+                            saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
+
+                            if(mediaPlayer != null)
+                                mediaPlayer.start();
+
+                            Intent intent = new Intent(Login.this, Backstory.class);
+                            intent.putExtra("MUSIC_RES_ID", R.raw.click);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> {
+                            dialog.dismiss();
+                        })
+                        .show();
+            }
+        });
+    }
+
+    public void navigateToOutside()
+    {
+        fabLoadGame.setOnClickListener(v -> {
+
+            Log.d("maya debugging", "click on load");
+
+            if(validateLogin())
+            {
+                SharedPreferences sharedPref = getSharedPreferences("MAYA", MODE_PRIVATE);
+                String username = sharedPref.getString("user", null);
+                currentLevel = helperDB.getCurrentLevel(username);
+
+                Log.d("maya debugging", "current level(login)"+currentLevel);
+
+                stopService(new Intent(Login.this, MusicService.class));
+                Log.d("MainActivity", "fabLoadGame clicked");
+                saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
+                Intent intent = new Intent(Login.this, Outside.class);
+                intent.putExtra("level", currentLevel);
+                intent.putExtra("MUSIC_RES_ID", R.raw.click);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void navigateToRegister()
+    {
+        fabRegister.setOnClickListener(v -> {
+            saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
+
+            if(mediaPlayer != null)
+                mediaPlayer.start();
+
+            Intent intent = new Intent(Login.this, Register.class);
+            intent.putExtra("MUSIC_RES_ID", R.raw.click);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
+    }
+
     public void loadSharedPreferences()
     {
-        SharedPreferences sp = getSharedPreferences("MAYA",MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("MAYA", MODE_PRIVATE);
 
         String name= sp.getString("user", "");
         String password= sp.getString("pass", "");
@@ -117,10 +153,8 @@ public class Login extends AppCompatActivity {
 
     public void saveSharedPreferences(String name, String pass)
     {
-
-        SharedPreferences sp=getSharedPreferences("MAYA",MODE_PRIVATE);
-
-        SharedPreferences.Editor editor= sp.edit();
+        SharedPreferences sp = getSharedPreferences("MAYA", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
 
         editor.putString("user",name);
         editor.putString("pass",pass);

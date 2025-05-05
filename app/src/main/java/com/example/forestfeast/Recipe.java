@@ -2,6 +2,7 @@ package com.example.forestfeast;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,11 +17,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.forestfeast.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Recipe extends AppCompatActivity {
 
     public TextView tvTitle, tvRecipe;
-    public Button fabSkip;
+    public ExtendedFloatingActionButton fabSkip;
     public static int currentLevel;
     public Handler handler;
 
@@ -49,10 +52,10 @@ public class Recipe extends AppCompatActivity {
         intent.putExtra("LOOPING", false); // Don't loop the music
         startService(intent);
 
-        fabSkip.setOnClickListener(v -> moveToGameplayActivity());
+        fabSkip.setOnClickListener(v -> navigateToGameplay());
 
         handler = new Handler();
-        handler.postDelayed(this::moveToGameplayActivity, 60000);
+        handler.postDelayed(this::navigateToGameplay, 60000);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -77,8 +80,8 @@ public class Recipe extends AppCompatActivity {
         startService(resumeMusicIntent);
     }
 
-    private void moveToGameplayActivity() {
-        handler.removeCallbacksAndMessages(null); //comment skibidi wow
+    private void navigateToGameplay() {
+        handler.removeCallbacksAndMessages(null);
 
         stopService(new Intent(this, MusicService.class));
 

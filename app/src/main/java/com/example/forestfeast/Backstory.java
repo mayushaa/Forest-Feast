@@ -33,6 +33,8 @@ public class Backstory extends AppCompatActivity {
     public void init() {
         fabSkip = findViewById(R.id.fabSkip);
         ivPicture = findViewById(R.id.ivPicture);
+        finished = false;
+        canPlayerNext = true;
     }
 
     @Override
@@ -40,9 +42,6 @@ public class Backstory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_backstory);
-
-        finished = false;
-        canPlayerNext = true;
 
         init();
 
@@ -198,7 +197,6 @@ public class Backstory extends AppCompatActivity {
         startService(stopMusicIntent);
 
         Intent intent = new Intent(Backstory.this, Outside.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         startActivity(intent);
     }
 

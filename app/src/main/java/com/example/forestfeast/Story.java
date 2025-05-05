@@ -1,6 +1,7 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -81,7 +82,6 @@ public class Story extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Intent intent = new Intent(this, MusicService.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.setAction("PAUSE_MUSIC");
         startService(intent);
     }
@@ -90,7 +90,6 @@ public class Story extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Intent intent = new Intent(this, MusicService.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.setAction("RESUME_MUSIC");
         startService(intent);
     }
@@ -172,7 +171,6 @@ public class Story extends AppCompatActivity {
         stopService(new Intent(this, MusicService.class));
 
         Intent intent = new Intent(Story.this, Restaurant.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
         startActivity(intent);
         finish();

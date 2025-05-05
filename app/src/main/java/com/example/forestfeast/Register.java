@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +61,7 @@ public class Register extends AppCompatActivity {
 
                 if (insertUser(fullName, username, email, password)) {
                     Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(Register.this, Login.class);
                     intent.putExtra("MUSIC_RES_ID", R.raw.click);
                     startActivity(intent);
@@ -111,6 +113,7 @@ public class Register extends AppCompatActivity {
         values.put(HelperDB.EMAIL, email);
         values.put(HelperDB.PASSWORD, password);
         values.put(HelperDB.CORRECT_COUNTER, 0);
+        values.put(HelperDB.CURRENT_LEVEL, 0);
 
         long result = db.insert(HelperDB.USERS_TABLE, null, values);
         return result != -1;

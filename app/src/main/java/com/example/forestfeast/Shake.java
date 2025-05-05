@@ -7,10 +7,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,9 +26,10 @@ import java.util.Random;
 
 public class Shake extends AppCompatActivity {
 
-    private ImageView ivFruit, ivTopping1, ivYoghurt, ivTbsp, ivTspn1, ivTspn2, ivMilk, ivTopping2;
-    private int currentLevel;
+    private ImageView ivOats, ivFruit, ivTopping1, ivYoghurt, ivTbsp, ivTspn1, ivTspn2, ivMilk, ivTopping2;
+    private int currentLevel, correctCounter;
     private Handler handler;
+    private boolean hasNavigated;
 
     private SensorManager sensorManager;
     private Sensor accelerometer;
@@ -34,10 +38,14 @@ public class Shake extends AppCompatActivity {
     private long lastUpdate;
     private float last_x, last_y, last_z;
 
+    private FrameLayout flSwirl;
+    private SwirlView view;
+
     public void init()
     {
-        Log.d("maya debugging", "shake init");
+        Log.d("maya debugging", "shake init" + currentLevel);
 
+        ivOats = findViewById(R.id.ivOats);
         ivFruit = findViewById(R.id.ivFruit);
         ivTopping1 = findViewById(R.id.ivTopping1);
         ivYoghurt = findViewById(R.id.ivYoghurt);
@@ -48,8 +56,11 @@ public class Shake extends AppCompatActivity {
         ivTopping2 = findViewById(R.id.ivTopping2);
         handler = new Handler();
         currentLevel = getIntent().getIntExtra("level", 0);
+        correctCounter = getIntent().getIntExtra("correctCounter", 0);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        hasNavigated = false;
+        flSwirl = findViewById(R.id.flSwirl);
     }
 
     @Override
@@ -57,9 +68,9 @@ public class Shake extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shake);
 
-        Log.d("maya debugging", "onCreate shake");
+        Log.d("maya debugging", "onCreate shake" + currentLevel);
         init();
-        Log.d("maya debugging", "after init");
+        Log.d("maya debugging", "after init" + currentLevel);
         hideSystemUI();
         setIngredients();
 
@@ -71,6 +82,7 @@ public class Shake extends AppCompatActivity {
         animateImageView(ivTspn2);
         animateImageView(ivMilk);
         animateImageView(ivTopping2);
+        animateImageView(ivOats);
 
         sensorEventListener = new SensorEventListener() {
             @Override
@@ -86,10 +98,14 @@ public class Shake extends AppCompatActivity {
 
                     float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
-                    if (speed > SHAKE_THRESHOLD) {
-                        Log.d("maya debugging", "Device shaken!");
+                    if (speed > SHAKE_THRESHOLD && !hasNavigated) {
+                        hasNavigated = true;
+                        Log.d("maya debugging", "Device shaken!" + currentLevel);
                         increaseImageMovement();
-                        handler.postDelayed(() -> navigateToResult(), 10000);
+                        handler.postDelayed(() -> swirl(), 3000);
+                        Log.d("maya debugging", "after swirl");
+                        handler.postDelayed(() -> navigateToResult(), 5000);
+                        Log.d("maya debugging", "after navigation to result");
                     }
 
                     last_x = x;
@@ -114,11 +130,20 @@ public class Shake extends AppCompatActivity {
         });
     }
 
+    public void swirl()
+    {
+        view = new SwirlView(Shake.this, flSwirl.getWidth(), flSwirl.getHeight());
+        flSwirl.addView(view);
+        Intent intent = new Intent(this, MusicService.class);
+        intent.putExtra("MUSIC_RES_ID", R.raw.transform);
+        intent.putExtra("LOOPING", false);
+    }
+
     public void navigateToResult()
     {
         Intent intent = new Intent(Shake.this, Result.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.click);
         intent.putExtra("level", currentLevel);
+        intent.putExtra("correctCounter", correctCounter);
         stopService(new Intent(this, MusicService.class));
         startActivity(intent);
     }
@@ -244,7 +269,7 @@ public class Shake extends AppCompatActivity {
     }
 
     private void increaseImageMovement() {
-        ImageView[] allImageViews = {ivTspn2, ivTbsp, ivTspn1, ivFruit, ivTopping1, ivMilk, ivYoghurt, ivTopping2};
+        ImageView[] allImageViews = {ivTspn2, ivTbsp, ivTspn1, ivFruit, ivTopping1, ivMilk, ivYoghurt, ivTopping2, ivOats};
         for (ImageView imageView : allImageViews) {
             ObjectAnimator shakeX = ObjectAnimator.ofFloat(imageView, "translationX", -50f, 50f);
             ObjectAnimator shakeY = ObjectAnimator.ofFloat(imageView, "translationY", -50f, 50f);

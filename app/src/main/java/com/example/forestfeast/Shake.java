@@ -3,6 +3,8 @@ package com.example.forestfeast;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -132,8 +134,24 @@ public class Shake extends AppCompatActivity {
 
     public void swirl()
     {
-        view = new SwirlView(Shake.this, flSwirl.getWidth(), flSwirl.getHeight());
+        view = new SwirlView(Shake.this, 400);
         flSwirl.addView(view);
+
+        Thread loadBitmaps = new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            view.setFrames(new Swirl(0, 0, new Bitmap[]{
+                    BitmapFactory.decodeResource(getResources(), R.drawable.swirl1),
+                    BitmapFactory.decodeResource(getResources(), R.drawable.swirl2),
+                    BitmapFactory.decodeResource(getResources(), R.drawable.swirl3),
+            }, (int)(flSwirl.getHeight() * 0.5128205128205128), flSwirl.getHeight(), flSwirl.getWidth(), flSwirl.getHeight()));
+        });
+        loadBitmaps.start();
+
         Intent intent = new Intent(this, MusicService.class);
         intent.putExtra("MUSIC_RES_ID", R.raw.transform);
         intent.putExtra("LOOPING", false);
@@ -323,5 +341,6 @@ public class Shake extends AppCompatActivity {
         );
     }
 
-
+    @Override
+    public void onBackPressed() {}
 }

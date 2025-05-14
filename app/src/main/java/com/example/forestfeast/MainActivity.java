@@ -1,8 +1,11 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,14 +26,35 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flChef;
     private MixingView view;
     public Button btnDev;
+    private MediaPlayer mediaPlayer;
 
     public void init()
     {
         this.fabBegin = findViewById(R.id.fabBegin);
         this.flChef = findViewById(R.id.flChef);
         this.btnDev = findViewById(R.id.btnDev);
-        view = new MixingView(MainActivity.this, flChef.getWidth(), flChef.getHeight());
+
+        Log.d("maya debugging", flChef.getWidth() + ", " + flChef.getHeight());
+        view = new MixingView(MainActivity.this, 400);
         flChef.addView(view);
+
+        Thread loadBitmaps = new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            view.setFrames(new Mixing(0, 100, new Bitmap[]{
+                    BitmapFactory.decodeResource(getResources(), R.drawable.ani_mix_1),
+                    BitmapFactory.decodeResource(getResources(), R.drawable.ani_mix_2),
+                    BitmapFactory.decodeResource(getResources(), R.drawable.ani_mix_3),
+                    BitmapFactory.decodeResource(getResources(), R.drawable.ani_mix_4),
+            }, (int)(flChef.getHeight() * 0.5128205128205128), (int)(flChef.getHeight() * 0.95), flChef.getWidth(), flChef.getHeight()));
+
+//            view.start();
+        });
+        loadBitmaps.start();
     }
 
     @Override
@@ -118,4 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
     }
+
+    @Override
+    public void onBackPressed() {}
 }

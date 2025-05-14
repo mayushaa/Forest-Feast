@@ -187,4 +187,7 @@ public class Story extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
     }
+
+    @Override
+    public void onBackPressed() {}
 }

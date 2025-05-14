@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +21,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.forestfeast.R;
 
 public class Gameplay extends AppCompatActivity {
-
     public ImageView ivBg;
     public ImageButton ibAns1, ibAns2, ibAns3, ibAns4;
     public TextView tvPoints;
@@ -137,6 +137,12 @@ public class Gameplay extends AppCompatActivity {
         Log.d("maya debugging", "correct counter "+correctCounter);
         intent.putExtra("correctCounter", correctCounter);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        if (timer != null) timer.cancel();
+        super.onStop();
     }
 
     @Override
@@ -351,4 +357,7 @@ public class Gameplay extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
     }
+
+    @Override
+    public void onBackPressed() {}
 }

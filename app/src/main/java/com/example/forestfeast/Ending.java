@@ -143,4 +143,7 @@ public class Ending extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {}
 }

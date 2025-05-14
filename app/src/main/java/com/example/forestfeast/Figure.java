@@ -5,40 +5,51 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 public abstract class Figure {
-
+    protected Bitmap[] frames;
+    protected int status;
+    protected int screenWidth;
+    protected int screenHeight;
+    protected int width;
+    protected int height;
     protected int x;
     protected int y;
-    protected Bitmap img;
-    static int maxWidth;// width of screen
-    static int maxHeight;//height of screen
 
-    public Figure(int x, int y, Bitmap img, int maxWidth, int maxHeight) {
-        Log.d("MIXING", "Figure");
+    public Figure(int x, int y, Bitmap[] frames, int width, int height, int screenWidth, int screenHeight) {
         this.x = x;
         this.y = y;
-        if (img == null)
-            Log.d("MIXING", "img is null");
+        this.frames = frames;
+        this.width = width;
+        this.height = height;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.status = 0;
 
-        this.img = img;
-        this.maxWidth = maxWidth;
-        this.maxHeight = maxHeight;
+        for(int i = 0; i < frames.length; i++)
+            frames[i] = Bitmap.createScaledBitmap(frames[i], width, height,false);
     }
 
-    public int getXr() {
-        return x + img.getWidth();
+    public int getX() {
+        return x;
     }
 
-    public int getYd() {
-        return y + img.getHeight();
+    public int getY() {
+        return y;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void animate() {
+        status = (status + 1) % frames.length;
+    }
 
     public void draw(Canvas c) {
-        Log.d("MIXING", "Figure-draw");
-        c.drawBitmap(this.img, this.x, this.y, null);
+        Log.d("mayas", String.valueOf(x));
+        c.drawBitmap(frames[status], (int)(x - width / 2.0 + screenWidth / 2.0), (int)(y - height / 2.0 + screenHeight / 2.0), null);
     }
-
-    public void move() {
-    }
-
 }

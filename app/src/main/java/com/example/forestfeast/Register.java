@@ -144,4 +144,7 @@ public class Register extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
     }
+
+    @Override
+    public void onBackPressed() {}
 }

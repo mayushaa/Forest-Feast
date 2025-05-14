@@ -52,8 +52,19 @@ public class Outside extends AppCompatActivity {
 
         Bitmap[] frames = getFramesForLevel(currentLevel);
 
-        view = new WalkingView(this, this.flCustomer.getWidth(), this.flCustomer.getHeight(), frames);
+        view = new WalkingView(this, 400);
         this.flCustomer.addView(view);
+
+        Thread loadBitmaps = new Thread(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            view.setFrames(new Walking(0, 0, frames, (int)(flCustomer.getHeight() * 0.5128205128205128), flCustomer.getHeight(), flCustomer.getWidth(), this.flCustomer.getHeight()));
+        });
+        loadBitmaps.start();
 
         ivLevel.setVisibility(View.VISIBLE);
         ivLevel.setAlpha(0f);
@@ -218,4 +229,7 @@ public class Outside extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
     }
+
+    @Override
+    public void onBackPressed() {}
 }

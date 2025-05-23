@@ -84,10 +84,10 @@ public class Ending extends AppCompatActivity {
 //        handler.postDelayed(() -> fadeInView(fabQuit), 40000);
     }
 
-    private void fadeInImage(ImageView imageView, int resId) {
-        imageView.setImageResource(resId);
-        imageView.setAlpha(0f);
-        imageView.animate()
+    private void fadeInImage(ImageView iv, int resId) {
+        iv.setImageResource(resId);
+        iv.setAlpha(0f);
+        iv.animate()
                 .alpha(1f)
                 .setDuration(1000)
                 .start();

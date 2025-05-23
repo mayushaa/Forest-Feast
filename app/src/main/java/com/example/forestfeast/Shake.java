@@ -153,7 +153,7 @@ public class Shake extends AppCompatActivity {
         loadBitmaps.start();
 
         Intent intent = new Intent(this, MusicService.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.transform);
+        //intent.putExtra("MUSIC_RES_ID", R.raw.transform);
         intent.putExtra("LOOPING", false);
     }
 

@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
         if (fabLoadGame != null)
             navigateToOutside();
 
-        if(fabRegister !=null)
+        if(fabRegister != null)
             navigateToRegister();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

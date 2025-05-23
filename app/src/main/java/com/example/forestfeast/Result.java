@@ -66,7 +66,6 @@ public class Result extends AppCompatActivity {
             stopService(new Intent(this, MusicService.class));
 
             currentLevel++;
-
             upgradeLevel();
 
             Intent intent = new Intent(Result.this, Story.class);
@@ -81,7 +80,6 @@ public class Result extends AppCompatActivity {
             stopService(new Intent(this, MusicService.class));
 
             currentLevel = 0;
-
             upgradeLevel();
 
             Intent intent = new Intent(Result.this, Ending.class);

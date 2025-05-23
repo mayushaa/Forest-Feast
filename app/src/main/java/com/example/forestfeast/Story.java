@@ -29,14 +29,15 @@ public class Story extends AppCompatActivity {
     };
     public int currentPicture = 0;
     public int currentLevel;
-    private boolean finished;
+    //private boolean finished;
     private boolean canPlayerNext;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler;
 
     public void init() {
         fabSkip = findViewById(R.id.fabSkip);
         ivPicture = findViewById(R.id.ivPicture);
         currentLevel = getIntent().getIntExtra("level", 0);
+        handler = new Handler(Looper.getMainLooper());;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Story extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_story);
 
-        finished = false;
+        //finished = false;
         canPlayerNext = true;
 
         init();
@@ -69,7 +70,7 @@ public class Story extends AppCompatActivity {
         playSoundForCurrentPicture();
         nextImageLoop();
 
-        fabSkip.setOnClickListener(v -> navigateToRestaurantActivity());
+        fabSkip.setOnClickListener(v -> navigateToRestaurant());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -94,9 +95,11 @@ public class Story extends AppCompatActivity {
         startService(intent);
     }
 
-    private void nextImageLoop() {
-        if (finished || currentPicture >= imageResources.length - 1) {
-            navigateToRestaurantActivity();
+    //if (currentPicture >= imageResources.length - 1) { אם צריך את finished משום מה להחליף לזה
+
+        private void nextImageLoop() {
+        if (currentPicture >= imageResources.length - 1) {
+            navigateToRestaurant();
             return;
         }
 
@@ -116,27 +119,27 @@ public class Story extends AppCompatActivity {
         handler.postDelayed(this::nextImageLoop, 7000);
     }
 
-    private void nextImage() {
-        if (currentPicture < imageResources.length - 1) {
-            currentPicture++;
-            ivPicture.setImageResource(imageResources[currentPicture]);
-            ivPicture.setVisibility(View.VISIBLE);
-            ivPicture.setAlpha(0f);
-            ivPicture.animate()
-                    .alpha(1f)
-                    .setDuration(1000)
-                    .start();
-            playSoundForCurrentPicture();
-            handler.postDelayed(this::nextImage, 5000);
-        } else {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    navigateToRestaurantActivity();
-                }
-            }, 5000);
-        }
-    }
+//    private void nextImage() {
+//        if (currentPicture < imageResources.length - 1) {
+//            currentPicture++;
+//            ivPicture.setImageResource(imageResources[currentPicture]);
+//            ivPicture.setVisibility(View.VISIBLE);
+//            ivPicture.setAlpha(0f);
+//            ivPicture.animate()
+//                    .alpha(1f)
+//                    .setDuration(1000)
+//                    .start();
+//            playSoundForCurrentPicture();
+//            handler.postDelayed(this::nextImage, 5000);
+//        } else {
+//            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    navigateToRestaurantActivity();
+//                }
+//            }, 5000);
+//        }
+//    }
 
     private void playSoundForCurrentPicture() {
         Intent intent = new Intent(this, MusicService.class);
@@ -166,7 +169,7 @@ public class Story extends AppCompatActivity {
         startService(intent);
     }
 
-    private void navigateToRestaurantActivity() {
+    private void navigateToRestaurant() {
         handler.removeCallbacksAndMessages(null);
         stopService(new Intent(this, MusicService.class));
 

@@ -42,13 +42,13 @@ public class HelperDB extends SQLiteOpenHelper {
 
     }
 
-    public boolean isUsernameTaken(SQLiteDatabase db, String username) {
-        String query = "SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=?";
-        Cursor cursor = db.rawQuery(query, new String[]{username});
-        boolean exists = cursor.getCount() > 0;
-        cursor.close();
-        return exists;
-    }
+//    public boolean isUsernameTaken(SQLiteDatabase db, String username) {
+//        String query = "SELECT * FROM " + USERS_TABLE + " WHERE " + USERNAME + "=?";
+//        Cursor cursor = db.rawQuery(query, new String[]{username});
+//        boolean exists = cursor.getCount() > 0;
+//        cursor.close();
+//        return exists;
+//    }
 
     public int getCurrentLevel(String username) {
         SQLiteDatabase db = this.getReadableDatabase();

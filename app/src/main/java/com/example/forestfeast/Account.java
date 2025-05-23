@@ -50,9 +50,9 @@ public class Account {
         return correctCounter;
     }
 
-    public void setCorrectCounter(int correctCounter) {
-        this.correctCounter = correctCounter;
-    }
+//    public void setCorrectCounter(int correctCounter) {
+//        this.correctCounter = correctCounter;
+//    }
 
     public int getCurrentLevel() { return currentLevel; }
 

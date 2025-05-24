@@ -103,6 +103,17 @@ public class Register extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString().trim()).matches()) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (etPassword.getText().toString().trim().length() < 4) {
+            Toast.makeText(this, "Password must be at least 4 characters long", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 

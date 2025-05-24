@@ -9,6 +9,7 @@ import android.util.Log;
 public class MusicService extends Service {
     public MediaPlayer player;
     public boolean isPlaying;
+
     public MusicService() {
     }
 

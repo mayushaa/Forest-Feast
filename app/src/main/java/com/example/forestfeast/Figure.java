@@ -28,21 +28,21 @@ public abstract class Figure {
             frames[i] = Bitmap.createScaledBitmap(frames[i], width, height,false);
     }
 
-    public int getX() {
-        return x;
-    }
+//    public int getX() {
+//        return x;
+//    }
 
-    public int getY() {
-        return y;
-    }
+//    public int getY() {
+//        return y;
+//    }
 
-    public int getWidth() {
-        return width;
-    }
+//    public int getWidth() {
+//        return width;
+//    }
 
-    public int getHeight() {
-        return height;
-    }
+//    public int getHeight() {
+//        return height;
+//    }
 
     public void animate() {
         status = (status + 1) % frames.length;

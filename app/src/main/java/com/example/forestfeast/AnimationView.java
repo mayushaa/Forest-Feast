@@ -49,8 +49,6 @@ public class AnimationView extends SurfaceView implements Runnable {
             animation.animate();
             draw();
 
-            Log.d("maya debugging", "animation run");
-
             try {
                 Thread.sleep(interval);
             } catch (InterruptedException e) {}

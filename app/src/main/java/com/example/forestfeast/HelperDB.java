@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 public class HelperDB extends SQLiteOpenHelper {
 
-    public static final String DB_FILE = "com.example.trivia.HelperDB.db";
+    public static final String DB_FILE = "forest_feast.db";
     public static final String USERS_TABLE = "Users";
     public static final String FULL_NAME = "full_name";
     public static final String USERNAME = "username";

@@ -28,8 +28,6 @@ public class Login extends AppCompatActivity {
     public ExtendedFloatingActionButton fabNewGame, fabLoadGame, fabRegister;
     public HelperDB helperDB;
     public SQLiteDatabase db;
-    public AlertDialog alertDialog;
-    public MediaPlayer mediaPlayer;
     public int currentLevel;
 
     public void init()
@@ -85,9 +83,6 @@ public class Login extends AppCompatActivity {
                             stopService(new Intent(Login.this, MusicService.class));
                             saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
 
-                            if(mediaPlayer != null)
-                                mediaPlayer.start();
-
                             Intent intent = new Intent(Login.this, Backstory.class);
                             intent.putExtra("MUSIC_RES_ID", R.raw.click);
                             startActivity(intent);
@@ -129,9 +124,6 @@ public class Login extends AppCompatActivity {
     {
         fabRegister.setOnClickListener(v -> {
             saveSharedPreferences(etUsername.getText().toString(), etPassword.getText().toString());
-
-            if(mediaPlayer != null)
-                mediaPlayer.start();
 
             Intent intent = new Intent(Login.this, Register.class);
             intent.putExtra("MUSIC_RES_ID", R.raw.click);

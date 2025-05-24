@@ -24,7 +24,7 @@ public class Question {
         return answerTexts;
     }
 
-    public int getCorrectAnswerIndex () {
+    public int getCorrectAnswerIndex() {
         return correctAnswerIndex;
     }
 
@@ -32,12 +32,12 @@ public class Question {
         return answerId == correctAnswerIndex;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "answerImageIds=" + Arrays.toString(answerImageIds) +
-                ", answerTexts=" + Arrays.toString(answerTexts) +
-                ", correctAnswerIndex=" + correctAnswerIndex +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Question{" +
+//                "answerImageIds=" + Arrays.toString(answerImageIds) +
+//                ", answerTexts=" + Arrays.toString(answerTexts) +
+//                ", correctAnswerIndex=" + correctAnswerIndex +
+//                '}';
+//    }
 }

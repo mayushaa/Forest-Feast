@@ -151,21 +151,21 @@ public class Outside extends AppCompatActivity {
                 };
             case 4:
                 return new Bitmap[]{
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_1),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_2),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_3)
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_raccoon_1),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_raccoon_2),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_raccoon_3)
                 };
             case 5:
                 return new Bitmap[]{
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_1),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_2),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_3)
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bear_1),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bear_2),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bear_3)
                 };
             case 6:
                 return new Bitmap[]{
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_1),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_2),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.out_squirrel_3)
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bunny_1),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bunny_2),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.out_bunny_3)
                 };
             default:
                 return new Bitmap[]{
@@ -179,7 +179,7 @@ public class Outside extends AppCompatActivity {
     private void playTalkingSound()
     {
         Intent intent = new Intent(this, MusicService.class);
-        intent.putExtra("MUSIC_RES_ID", R.raw.talking);
+        intent.putExtra("MUSIC_RES_ID", R.raw.angry_critic_voice);
         intent.putExtra("LOOPING", false);
         startService(intent);
     }

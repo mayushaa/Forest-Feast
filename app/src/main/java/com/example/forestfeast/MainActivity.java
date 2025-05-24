@@ -1,6 +1,7 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout flChef;
     private MixingView view;
     public Button btnDev;
-    private MediaPlayer mediaPlayer;
 
     public void init()
     {
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         if (btnDev != null) {
             btnDev.setOnClickListener(v -> {
                 Log.d("MainActivity", "btnDev clicked");
-                Intent intent = new Intent(MainActivity.this, Shake.class);
+                Intent intent = new Intent(MainActivity.this, Story.class);
                 startActivity(intent);
             });
         }

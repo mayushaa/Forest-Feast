@@ -53,13 +53,13 @@ public class Story extends AppCompatActivity {
 
         hideSystemUI();
 
-        ivPicture.setImageResource(imageResources[currentPicture]);
-        ivPicture.setVisibility(View.VISIBLE);
-        ivPicture.setAlpha(0f);
-        ivPicture.animate()
-                .alpha(1f)
-                .setDuration(1000)
-                .start();
+//        ivPicture.setImageResource(imageResources[currentPicture]);
+//        ivPicture.setVisibility(View.VISIBLE);
+//        ivPicture.setAlpha(0f);
+//        ivPicture.animate()
+//                .alpha(1f)
+//                .setDuration(1000)
+//                .start();
 
         ivPicture.setOnClickListener(v -> {
             if (!canPlayerNext) return;
@@ -67,7 +67,7 @@ public class Story extends AppCompatActivity {
             nextImageLoop();
         });
 
-        playSoundForCurrentPicture();
+//        playSoundForCurrentPicture();
         nextImageLoop();
 
         fabSkip.setOnClickListener(v -> navigateToRestaurant());
@@ -97,8 +97,8 @@ public class Story extends AppCompatActivity {
 
     //if (currentPicture >= imageResources.length - 1) { אם צריך את finished משום מה להחליף לזה
 
-        private void nextImageLoop() {
-        if (currentPicture >= imageResources.length - 1) {
+    private void nextImageLoop() {
+        if (currentPicture >= imageResources.length) {
             navigateToRestaurant();
             return;
         }
@@ -106,7 +106,7 @@ public class Story extends AppCompatActivity {
         canPlayerNext = false;
         handler.postDelayed(() -> canPlayerNext = true, 500);
 
-        currentPicture++;
+        playSoundForCurrentPicture();
         ivPicture.setImageResource(imageResources[currentPicture]);
         ivPicture.setVisibility(View.VISIBLE);
         ivPicture.setAlpha(0f);
@@ -114,9 +114,9 @@ public class Story extends AppCompatActivity {
                 .alpha(1f)
                 .setDuration(1000)
                 .start();
-        playSoundForCurrentPicture();
+        currentPicture++;
 
-        handler.postDelayed(this::nextImageLoop, 7000);
+        handler.postDelayed(this::nextImageLoop, 5000);
     }
 
 //    private void nextImage() {
@@ -141,23 +141,73 @@ public class Story extends AppCompatActivity {
 //        }
 //    }
 
+//    private void playSoundForCurrentPicture() {
+//        Intent intent = new Intent(this, MusicService.class);
+//        switch (currentPicture) {
+//            case 0:
+//            case 1:
+//            case 2:
+//            case 3:
+//            case 4:
+//            case 5:
+//            case 6:
+//            case 7:
+//                intent.putExtra("MUSIC_RES_ID", R.raw.talking);
+//                intent.putExtra("LOOPING", true);
+//                break;
+//            case 8:
+//                intent.putExtra("MUSIC_RES_ID", 0);
+//                // No sound for s9
+//                break;
+//            case 9:
+//                Log.d("maya debugging", "dundundun");
+//                intent.putExtra("MUSIC_RES_ID", R.raw.dundundun);
+//                intent.putExtra("LOOPING", false);
+//                break;
+//            default:
+//        }
+//        startService(intent);
+//    }
+
     private void playSoundForCurrentPicture() {
-        Intent intent = new Intent(this, MusicService.class);
+        Intent intent = new Intent(Story.this, MusicService.class);
+
         switch (currentPicture) {
             case 0:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s1_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 1:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s2_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 2:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s3_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 3:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s4_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 4:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s5_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 5:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s6_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 6:
+                intent.putExtra("MUSIC_RES_ID", R.raw.s7_voice);
+                intent.putExtra("LOOPING", false);
+                break;
             case 7:
-                intent.putExtra("MUSIC_RES_ID", R.raw.talking);
-                intent.putExtra("LOOPING", true);
+                intent.putExtra("MUSIC_RES_ID", R.raw.s8_voice);
+                intent.putExtra("LOOPING", false);
                 break;
             case 8:
-                intent.putExtra("MUSIC_RES_ID", 0);
                 // No sound for s9
+                intent.putExtra("MUSIC_RES_ID", 0);
                 break;
             case 9:
                 Log.d("maya debugging", "dundundun");
@@ -165,7 +215,14 @@ public class Story extends AppCompatActivity {
                 intent.putExtra("LOOPING", false);
                 break;
             default:
+                return;
         }
+
+        Intent stopMusicIntent = new Intent(Story.this, MusicService.class);
+        stopMusicIntent.setAction("STOP_MUSIC");
+        startService(stopMusicIntent);
+
+        Log.d("maya debugging", "playing sound for picture " + currentPicture);
         startService(intent);
     }
 

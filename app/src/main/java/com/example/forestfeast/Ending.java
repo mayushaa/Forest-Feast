@@ -79,7 +79,7 @@ public class Ending extends AppCompatActivity {
 
         handler.postDelayed(() -> showAndScrollText(tv2), 22000);
 
-        handler.postDelayed(() -> fadeInView(tvThank), 37000);
+        handler.postDelayed(() -> fadeInView(tvThank), 32500);
 
 //        handler.postDelayed(() -> fadeInView(fabQuit), 40000);
     }

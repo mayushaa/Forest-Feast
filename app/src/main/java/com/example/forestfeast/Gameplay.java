@@ -1,7 +1,6 @@
 package com.example.forestfeast;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -30,7 +29,6 @@ public class Gameplay extends AppCompatActivity {
     private static int currentLevel;
     public static int correctCounter = 0;
     private CountDownTimer timer;
-    public MediaPlayer mediaPlayer;
 
     public void init ()
     {
@@ -93,9 +91,6 @@ public class Gameplay extends AppCompatActivity {
         button.setOnClickListener(v -> {
             Log.d("maya debugging", "before setUpAnswerButton"+answerId+","+button);
 
-            if(mediaPlayer != null)
-                mediaPlayer.start();
-
             Question question = questions[currentQuestion];
             Log.d("maya debugging", "after setUpAnswerButton"+question.toString());
             if (question.isCorrectAnswer(answerId)) {
@@ -122,9 +117,6 @@ public class Gameplay extends AppCompatActivity {
     }
 
     private void navigateToShake() {
-
-        if(mediaPlayer != null)
-            mediaPlayer.start();
 
         Log.d("maya debugging", "navigateToShake "+currentLevel);
         if (timer != null) timer.cancel();
